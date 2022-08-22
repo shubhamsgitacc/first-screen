@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Quotes!!</title>
+</head>
+
+<body>
+    <div class="boxone">
+        <div class="boxtwo">
+            <i class="fa-solid fa-quote-left"></i>
+            <div class="qcont">
+                <div id="quotes"></div>
+            </div>
+            <div class="acont">
+                <div id="author"></div>
+            </div>
+            <div class="newcont">
+                <button id="new_quotes">New Quotes</button></div>
+        </div>
+    </div>
+    <script>
+        const quotes = document.getElementById("quotes");
+        const author = document.getElementById("author")
+        let realdata = "";
+        let data = "";
+        let qotesData = "";
+
+
+        const new_quotes = document.getElementById("new_quotes")
+        const getNewQotes = () => {
+            let rnum = Math.floor(Math.random() * 1000);
+            console.log(rnum)
+            qotesData = realdata[rnum]
+            quotes.innerHTML = qotesData.text;
+
+            qotesData.author == null ? (author.innerText = "-unknows") : author.innerText = `- ${qotesData.author}`;
+
+
+            console.log()
+
+
+        }
+        const getQotes = async() => {
+            const url = "https://type.fit/api/quotes";
+            try {
+
+                data = await fetch(url);
+                realdata = await data.json();
+                getNewQotes();
+                //console.log(realdata.length);
+            } catch (error) {
+
+            }
+        }
+        new_quotes.addEventListener('click', getNewQotes)
+        getQotes();
+    </script>
+</body>
+
+
+</html>
